@@ -1,6 +1,14 @@
 var layouts = require('../modules/layouts');
 
-layouts.postAdd(function(err, body) {
+var requestBody = {
+	x:1,
+	y:1,
+	w:1,
+	h:1,
+	size:'md'
+};
+
+layouts.postAdd(requestBody, function(err, body) {
 	//process the body
 	if(!err) {
 		console.log(body);
