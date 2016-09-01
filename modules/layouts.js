@@ -13,16 +13,40 @@ var get = function (callback) {
 	request(url, function(error, response, body) {
 
 		if(!error && response.statusCode == 200) {
-			callback(null, body);
+			callback(null, body, response.statusCode);
 		}
 		else {
-			callback(error, null);
+			callback(error, null, response.statusCode);
 		}
 	} );
 }
 
 var postAdd = function( params, callback ) {
-	request.post(url, params, function(error, response, body) {
+	request.post(url, { form: params }, function(error, response, body) {
+		if(!error && response.statusCode == 201) {
+			callback(null, body);
+		}
+		else {
+			callback(error, null);
+		}
+	} );
+}
+
+var postAddLayout = function( gridId, params, callback ) {
+	request.post(url+gridId+'/layouts/', { form: params }, function(error, response, body) {
+		if(!error && response.statusCode == 200) {
+			callback(null, body, response.statusCode);
+		}
+		else {
+
+			console.log(body);
+			callback(error, null, response.statusCode);
+		}
+	} );
+}
+
+var putUpdateLayout = function( gridId, layoutId, params, callback ) {
+	request.post(url, { form: params }, function(error, response, body) {
 		if(!error && response.statusCode == 200) {
 			callback(null, body);
 		}
@@ -32,30 +56,8 @@ var postAdd = function( params, callback ) {
 	} );
 }
 
-var postAddLayout = function( params, callback ) {
-	request.post(url, params, function(error, response, body) {
-		if(!error && response.statusCode == 200) {
-			callback(null, body);
-		}
-		else {
-			callback(error, null);
-		}
-	} );
-}
-
-var putUpdateLayout = function( params, callback ) {
-	request.put(url, params, function(error, response, body) {
-		if(!error && response.statusCode == 200) {
-			callback(null, body);
-		}
-		else {
-			callback(error, null);
-		}
-	} );
-}
-
-var deleteUpdateLayout = function( params, callback ) {
-	request.delete(url, params, function(error, response, body) {
+var deleteLayout = function( gridId, callback ) {
+	request.delete(url+gridId, function(error, response, body) {
 		if(!error && response.statusCode == 200) {
 			callback(null, body);
 		}
@@ -70,5 +72,5 @@ module.exports= {
 	postAdd : postAdd,
 	postAddLayout: postAddLayout,
 	putUpdateLayout: putUpdateLayout,
-	deleteUpdateLayout: deleteUpdateLayout
+	deleteLayout: deleteLayout
 };
