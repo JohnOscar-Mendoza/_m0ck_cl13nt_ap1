@@ -1,0 +1,26 @@
+"use strict";
+var tape = require('tape').test;
+var layouts = require('../modules/layouts');
+
+var requestBody = {
+	x:1,
+	y:1,
+	w:1,
+	h:1,
+	size:'md'
+};
+
+test('Adding a grid', function(t) {
+
+	layouts.postAdd(requestBody, function(err, body, status) {
+
+		if(!err) {
+			console.log(body);
+		}
+		else {
+			console.log(err);
+		}
+
+	});
+
+})

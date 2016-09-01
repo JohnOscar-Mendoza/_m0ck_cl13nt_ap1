@@ -4,7 +4,7 @@
   "description": "Alpha for Mysale Now Client API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape"
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +13,8 @@
     "bluebird": "^3.4.2",
     "request": "^2.74.0",
     "string-template": "^1.0.0"
+  },
+  "devDependencies": {
+    "tape": "^4.6.0"
   }
 }
