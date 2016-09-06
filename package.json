@@ -1,10 +1,15 @@
 {
-  "name": "mysale-now-client-api",
+  "name": "dashboards-nodejs-client-api",
   "version": "0.0.1",
   "description": "Alpha for Mysale Now Client API",
   "main": "index.js",
   "scripts": {
-    "test": "tape"
+    "test": "tape",
+    "test:all": "tape \"__tests__/*.js\"",
+    "test:mocha": "mocha",
+    "test:jasmine": "jasmine",
+    "test:jasmine:init": "jasmine init",
+    "test:jasmine:examples": "jasmine examples"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +20,9 @@
     "string-template": "^1.0.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "promise": "^7.1.1",
     "tape": "^4.6.0"
   }
 }
