@@ -6,8 +6,8 @@ var async = require('async');
 
 var url = constants.BASE_PATH+'v1/grids/';
 
-var get = function (callback) {
-	request(url, function(error, response, body) {
+var get = function (userId, callback) {
+	request(url+"/"+userId, function(error, response, body) {
 
 		if(!error && response.statusCode == 200) {
 			callback(null, body, response.statusCode);
@@ -18,8 +18,8 @@ var get = function (callback) {
 	} );
 }
 
-var postAdd = function( params, callback ) {
-	request.post(url, { form: params }, function(error, response, body) {
+var postAdd = function(params, callback ) {
+	request.post(url+"/"+params.userId, { form: params }, function(error, response, body) {
 		if(!error && response.statusCode == 201) {
 			console.log(body);
 			callback(null, body, response.statusCode);

@@ -3,6 +3,7 @@ var test = require('tape').test;
 var layouts = require('../modules/layouts');
 
 var requestBody = {
+	userId: '57ce6e57ec199ba95ac71a03',
 	x:1,
 	y:1,
 	w:1,
