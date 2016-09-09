@@ -1,7 +1,7 @@
 {
   "name": "dashboards-nodejs-client-api",
-  "version": "0.0.1",
-  "description": "Alpha for Mysale Now Client API",
+  "version": "0.0.3",
+  "description": "Dashboards Client API",
   "main": "index.js",
   "scripts": {
     "test": "tape",
