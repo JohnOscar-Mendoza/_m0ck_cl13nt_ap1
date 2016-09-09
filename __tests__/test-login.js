@@ -1,16 +1,16 @@
 // ./__tests__/test-login.js
 "use strict";
 var test = require('tape').test;
-var auth = require('../modules/auth');
+var client = require('../');
 
 test('Successful Login', function(t) {
 
 	var requestBody = {
-		username: "uname1",
+		username: "test3",
 		password: "encrypted_password"
 	};
 
-	auth.postLogin(requestBody, function(err, body, statusCode) {
+	client.auth.postLogin(requestBody, function(err, body, statusCode) {
 
 		t.equal(statusCode, 200, "Status code should be 200");
 		t.end();
@@ -26,7 +26,7 @@ test('Login Failed', function(t) {
 		password: "encrypted_password"
 	};
 
-	auth.postLogin(requestBody, function(err, body, statusCode) {
+	client.auth.postLogin(requestBody, function(err, body, statusCode) {
 
 		t.equal(statusCode, 401, "Status code should be 401");
 		t.end();

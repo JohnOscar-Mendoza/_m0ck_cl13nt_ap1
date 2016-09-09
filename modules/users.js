@@ -23,7 +23,15 @@ var getUsers = function(callback) {
 }
 
 var getUserById = function(userId, callback) {
-
+	var newUrl = url+"/"+userId+"/";
+	request(newUrl, function(error, response, body) {
+		if(!error && response.statusCode == 200) {
+			callback(null, body, response.statusCode);
+		}
+		else {
+			callback(error, null, response.statusCode);
+		}
+	});
 }
 
 var postCreateUser = function(params, callback) {
@@ -59,6 +67,7 @@ var putUpdateUser = function(params, callback) {
 module.exports = {
 
 	getUsers: getUsers,
+	getUserById: getUserById,
 	postCreateUser: postCreateUser,
 	putUpdateUser: putUpdateUser
 
