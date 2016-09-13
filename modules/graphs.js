@@ -2,7 +2,8 @@
 var constants = require('../constants');
 // var http = require('http');
 var request = require('request');
-// var async = require('async');
+var LineGraphMapper = require('./mappers/graphs');
+var async = require('async');
 var url = constants.BASE_PATH+'v1/graphs/';
 
 var getOne = function(callback) {
@@ -10,7 +11,18 @@ var getOne = function(callback) {
 	request.get(url+'one/', function(error, response, body) {
 		if(!error && response.statusCode == 200) {
 
-			callback(null, body, response.statusCode)
+			// var jsonString = body;
+			var decoded = JSON.parse(body);
+			// var jsonPretty = JSON.stringify(decoded,null,2);
+			var graphBody = new Array();
+			decoded.forEach(function(value, key) {
+				var mapper = new LineGraphMapper(value);
+				mapper.mapSeries(value.Nodes);
+				graphBody.push(mapper); 
+			});
+			// console.log(graphBody[0]);
+
+			callback(null, graphBody, response.statusCode)
 
 		}
 		else {
