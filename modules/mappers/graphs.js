@@ -1,6 +1,6 @@
 "use strict";
 function SolidGuage (properties) {
- 	this.data = properties.Data || [];
+ 	this.dataPropery = properties.Data || [];
 	this.chart = {
 		type: properties.Filter || 'solidguage'
 	}
@@ -19,12 +19,12 @@ function SolidGuage (properties) {
 SolidGuage.prototype.mapSeries = function() {
 	this.series.push({
 		name: this.title.text,
-		data: this.data
+		data: this.dataPropery
 	});
 };
 
 function Line (properties) {
-	this.data = properties.Nodes || [];
+	this.dataPropery = properties.Nodes || [];
 	this.title = {
 		text: properties.Name
 	};
@@ -42,7 +42,7 @@ function Line (properties) {
 Line.prototype.mapSeries = function() {
 
 	var seriesArr = new Array();
-	this.data.forEach( function(value, index) {
+	this.dataPropery.forEach( function(value, index) {
 
 		seriesArr.push({
 			name: value.Name,

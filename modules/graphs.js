@@ -56,6 +56,6 @@ var getGuage =  function(callback) {
 }
 
 module.exports = {
-	line: getLine,
+	lines: getLine,
 	guages: getGuage
 };
