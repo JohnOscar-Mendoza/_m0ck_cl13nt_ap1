@@ -32,7 +32,15 @@ client.users.getUsers(function(error, body, statusCode) {
 
 ### Add
 ```js
-client.users.postCreateUser({formData}, function(error, body, statusCode) {
+var formData = {
+    first_name:'test',
+	last_name:'test',
+	email:'test2@email.com',
+	username:'test2',
+	password:'encrypted_password'
+	};
+
+client.users.postCreateUser(formData, function(error, body, statusCode) {
     if(error) {
         // No Record Found
     } else {
@@ -42,6 +50,14 @@ client.users.postCreateUser({formData}, function(error, body, statusCode) {
 ```
 ### Update By Id
 ```js
+var formData = {
+    user_id: "uniqueUserId",
+    first_name:'test',
+	last_name:'test',
+	email:'test2@email.com',
+	username:'test2',
+	password:'encrypted_password'
+	};
 client.users.putUpdateUser({formData}, function(error, body, statusCode) {
     if(error) {
         // No Record Found
@@ -60,3 +76,5 @@ client.users.getUserById({userId}, function(error, body, statusCode) {
     }
 });
 ```
+
+## Grid layouts
