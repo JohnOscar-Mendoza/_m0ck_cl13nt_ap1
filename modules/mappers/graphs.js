@@ -1,29 +1,75 @@
-function LineGraphsMapper (responseObject) {
-	// console.log(JSON.stringify(responseObject, null, 2));
-	this.title = { 
-		text: responseObject.Name,
-		x: -20
+"use strict";
+function SolidGuage (properties) {
+ 	this.data = properties.Data || [];
+	this.chart = {
+		type: properties.Filter || 'solidguage'
+	}
+	this.title = {
+		text: properties.Name || 'Guage for Something'
 	};
-	// this.subtitle = responseObject.Brash.subtitle;
-	this.xAxis = responseObject.Brash.xAxis;
-	this.yAxis = responseObject.Brash.yAxis;
-	this.tooltip = responseObject.Brash.tooltip;
-	this.legend = responseObject.Brash.legend;
+	this.yAxis = {
+		title: {
+			text: properties.Name || 'Guage for Something'
+		}
+	}
+	this.brash = properties.Brash || null;
 	this.series = new Array();
-	// console.log(this);
+};
+
+SolidGuage.prototype.mapSeries = function() {
+	this.series.push({
+		name: this.title.text,
+		data: this.data
+	});
+};
+
+function Line (properties) {
+	this.data = properties.Nodes || [];
+	this.title = {
+		text: properties.Name
+	};
+	this.xAxis = {
+		categories: properties.Brash.xAxis || null
+	};
+	this.yAxis = {
+		title: {
+			text: properties.Brash.xAxis || "Line Chart for Something"
+		}
+	};
+	this.series = new Array();
 }
 
-LineGraphsMapper.prototype.mapSeries = function(seriesNodes) {
+Line.prototype.mapSeries = function() {
 
-	var finalSeries = new Array();
+	var seriesArr = new Array();
+	this.data.forEach( function(value, index) {
 
-	seriesNodes.forEach(function(value, key) {
-		finalSeries.push({
+		seriesArr.push({
 			name: value.Name,
 			data: value.Data
 		});
 	});
-
-	this.series = finalSeries;
+	this.series = seriesArr;
 };
-module.exports = LineGraphsMapper;
+
+function GraphMapper (responseObject) {
+	this.graphClass = Line;
+	// this.series = [];
+	switch(responseObject.Filter) {
+		case 'solidguage': 
+		this.graphClass = SolidGuage;
+		break;
+		
+		case 'line':
+		this.graphClass = Line;
+		break;
+
+		default:
+		this.graphClass = Line;
+		break;
+	}
+
+	return new this.graphClass(responseObject);
+}
+
+module.exports = GraphMapper;
