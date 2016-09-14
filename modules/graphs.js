@@ -3,13 +3,15 @@ var constants = require('../constants');
 // var http = require('http');
 var request = require('request');
 var LineGraphMapper = require('./mappers/graphs');
+var GraphsMapper_v2 = require('./mappers/graphs_v2');
 var async = require('async');
 var url = constants.BASE_PATH+'v1/graphs/';
 
-var getOne = function(callback) {
+var lines = {
+	getOne: function(callback) {
 
-	request.get(url+'one/', function(error, response, body) {
-		if(!error && response.statusCode == 200) {
+		request.get(url+'line/one/', function(error, response, body) {
+			if(!error && response.statusCode == 200) {
 
 			// var jsonString = body;
 			var decoded = JSON.parse(body);
@@ -31,25 +33,60 @@ var getOne = function(callback) {
 
 	});
 
-} 
+	},
+	getTwo: function(callback) {
 
-var getTwo = function(params, callback) {
+		request.get(url+'/line/two/', function(error, response, body) {
+			if(!error && response.statusCode == 200) {
+				callback(null, body, response.statusCode)
+			}
+			else {
+				callback(error, null, response.statusCode)
+			}
+		});
+	},
+	getThree: function(callback) {
 
-	request.get(url+'two/', function(error, response, body) {
+		request.get(url+'/line/three/', function(error, response, body) {
+			if(!error && response.statusCode == 200) {
+				callback(null, body, response.statusCode)
+			}
+			else {
+				callback(error, null, response.statusCode)
+			}
+
+		});
+
+	}
+};
+
+
+var getGuage =  function(callback) {
+	request.get(url+'/guage/two/', function(error, response, body) {
 		if(!error && response.statusCode == 200) {
+			var decoded = JSON.parse(body);
+			var output = new Array();
 
-			callback(null, body, response.statusCode)
+			decoded.forEach(function(value, index) {
 
+				var graphMapper_v2 = new GraphsMapper_v2(value);
+				graphMapper_v2.mapSeries();
+				output.push(graphMapper_v2);
+
+			});
+
+			callback(null, output, response.statusCode)
 		}
 		else {
 			callback(error, null, response.statusCode)
 		}
 
 	});
-
 }
 
+
+
 module.exports = {
-	getOne: getOne,
-	getTwo: getTwo
+	line: lines,
+	guages: getGuage
 };
