@@ -22,20 +22,41 @@ client.auth.postLogin(requestBody, function(error, body, statusCode) {
 ### Get all
 ```js
 client.users.getUsers(function(error, body, statusCode) {
-  if(error) {
-    // No Record Found
-  } else {
-    // display Users
-  }
+    if(error) {
+        // No Record Found
+    } else {
+        // display Users
+    }
+});
+```
+
+### Add
+```js
+client.users.postCreateUser({formData}, function(error, body, statusCode) {
+    if(error) {
+        // No Record Found
+    } else {
+        // display Users
+    }
+});
+```
+### Update By Id
+```js
+client.users.putUpdateUser({formData}, function(error, body, statusCode) {
+    if(error) {
+        // No Record Found
+    } else {
+        // display Users
+    }
 });
 ```
 ### Get one
 ```js
 client.users.getUserById({userId}, function(error, body, statusCode) {
-  if(error) {
-    // No Record Found
-  } else {
-    /// Display User
-  }
+    if(error) {
+        // No Record Found
+    } else {
+        /// Display User
+    }
 });
 ```
